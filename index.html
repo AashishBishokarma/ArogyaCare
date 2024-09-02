@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArogyaCare - Home</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('arogyaCare.webp') no-repeat  fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+      text-align: center;
+    }
+
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h1 {
+      color: black;
+      font-size: 2.5em;
+      margin-bottom: 15px;
+    }
+
+    p {
+      color: black;
+      font-size: 1.1em;
+      margin-bottom: 20px;
+    }
+
+    select,
+    button {
+      padding: 10px;
+      font-size: 1em;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 100%;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>ArogyaCare</h1>
+    <p>Select your state and city to find hospitals near you with available beds</p>
+
+    <select id="stateDropdown" onchange="updateCities()">
+      <option value="">Select State</option>
+      <option value="Tamil Nadu">Tamil Nadu</option>
+      <option value="Maharashtra">Maharashtra</option>
+      <option value="Karnataka">Karnataka</option>
+      <!-- Add more states as needed -->
+    </select>
+
+    <select id="cityDropdown">
+      <option value="">Select City</option>
+      <!-- Cities will be populated based on selected state -->
+    </select>
+
+    <button onclick="searchHospitals()">Search Hospitals</button>
+  </div>
+
+  <script>
+    // Cities data for each state
+    const citiesByState = {
+      "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai"],
+      "Maharashtra": ["Mumbai", "Pune", "Nagpur"],
+      "Karnataka": ["Bengaluru", "Mysuru", "Mangaluru"],
+      // Add more states and cities as needed
+    };
+
+    // Function to update cities based on selected state
+    function updateCities() {
+      const stateDropdown = document.getElementById("stateDropdown");
+      const cityDropdown = document.getElementById("cityDropdown");
+      const selectedState = stateDropdown.value;
+
+      // Clear previous city options
+      cityDropdown.innerHTML = '<option value="">Select City</option>';
+
+      if (selectedState && citiesByState[selectedState]) {
+        citiesByState[selectedState].forEach(city => {
+          const option = document.createElement("option");
+          option.value = city;
+          option.textContent = city;
+          cityDropdown.appendChild(option);
+        });
+      }
+    }
+
+    // Function to handle the search button click
+    function searchHospitals() {
+      const state = document.getElementById("stateDropdown").value;
+      const city = document.getElementById("cityDropdown").value;
+
+      if (state && city) {
+        window.location.href = "hospital-list.html"; // Redirect to Hospital List page
+      } else {
+        alert("Please select both state and city.");
+      }
+    }
+  </script>
+</body>
+
+</html>
